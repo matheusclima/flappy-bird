@@ -4,10 +4,11 @@ from random import randint
 
 from pygame.math import Vector2
 
+
 class Obstacles:
     STEP = 200
-    HEIGHT_RANGE = (100, 350)
-    GAP = 220
+    HEIGHT_RANGE = (150, 300)
+    GAP = 210
     LIST_LENGTH = 3
     CURRENT_PIPE = 0
     
@@ -38,24 +39,15 @@ class Obstacles:
     def update_points(self, current_x):
         current_pipe = self.pipes[self.CURRENT_PIPE]
         if current_x > current_pipe.pos_x:
-            print('PONTOSSSS')
             if self.CURRENT_PIPE < int(self.LIST_LENGTH/2):
                 self.CURRENT_PIPE += 1
 
 
-    @property
-    def last_pipes(self):
-        return self.pipes[-1]
-
-
-
 class Pipes:
     def __init__(self, pos, gap):
-        # print(pos)
         self.pos = pos
         top_pipe_pos = [pos[0], pos[1] - gap]
         bottom_pipe_pos = [pos[0], pos[1] + gap]
-
         self.top_pipe = Pipe(top=True, pos=top_pipe_pos)
         self.bottom_pipe = Pipe(top=False, pos=bottom_pipe_pos)
 
@@ -73,17 +65,14 @@ class Pipe(pygame.sprite.Sprite):
     def __init__(self, top, pos):
         pygame.sprite.Sprite.__init__(self)
         self.pos = Vector2((pos[0], pos[1]))
-
         self.image = pygame.image.load("assets/img/pipeUp.png") if top else pygame.image.load("assets/img/pipeDown.png")
-        self.rect = self.image.get_rect()
-        if top:
-            self.rect.bottom = pos[1]
-        else:
-            self.rect.top = pos[1]
+        
+        height = self.image.get_height()
+        height_diff = - height/2 if top else height/2
+        self.rect = self.image.get_rect(center=(pos[0], pos[1] + height_diff))
 
     def move(self):
         vel = Vector2((-1, 0))
-        # print(self.pos)
         self.pos += vel
         self.rect.center = self.pos
     

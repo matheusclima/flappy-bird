@@ -51,7 +51,7 @@ while running:
     collisions = [floor_rect, *top_pipe_obstacles, *bottom_pipe_obstacles]
 
     if collision_detector.detect(bird.rect, *collisions):
-        print('MORRI------------------')
+        # print('MORRI------------------')
         bird = Bird()
         obstacles = Obstacles()
         group = pygame.sprite.Group()
@@ -61,7 +61,6 @@ while running:
             group.add(pipes.bottom_pipe)
         input = InputHandler(pygame, bird)
         continue
-    
 
     screen.blit(background, (bg_pos[0], 0))
     screen.blit(background, (bg_pos[1], 0))
