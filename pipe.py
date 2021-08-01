@@ -42,6 +42,12 @@ class Obstacles:
             if self.CURRENT_PIPE < int(self.LIST_LENGTH/2):
                 self.CURRENT_PIPE += 1
 
+    @property
+    def all_pipes(self):
+        all_pipes = []
+        for pipes in self.pipes:
+            all_pipes.extend([pipes.top_pipe, pipes.bottom_pipe])
+        return all_pipes
 
 class Pipes:
     def __init__(self, pos, gap):
@@ -54,10 +60,6 @@ class Pipes:
     @property
     def pos_x(self):
         return self.top_pipe.pos[0]
-
-    @property
-    def pos_y(self):
-        return self.top_pipe.pos[1]
 
 
 class Pipe(pygame.sprite.Sprite):

@@ -14,6 +14,7 @@ class Bird(pygame.sprite.Sprite):
         
     def jump(self):
         self.speed[1] = -3
+        
     def fall(self):
         self.pos += self.speed
         self.rect.center = self.pos

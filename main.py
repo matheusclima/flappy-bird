@@ -9,8 +9,6 @@ pygame.init()
 running = True
 
 size = width, height = 288, 512
-speed = [1, 1]
-black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
@@ -29,9 +27,7 @@ obstacles = Obstacles()
 
 group = pygame.sprite.Group()
 group.add(bird)
-for pipes in obstacles.pipes:
-    group.add(pipes.top_pipe)
-    group.add(pipes.bottom_pipe)
+group.add(obstacles.all_pipes)
 while running:
 
     input.handle()
@@ -42,18 +38,14 @@ while running:
     if bg_pos[1] < background.get_width() * -1:
         bg_pos[1] = background.get_width()
 
-    top_pipe_obstacles = [pipes.top_pipe for pipes in obstacles.pipes]
-    bottom_pipe_obstacles = [pipes.bottom_pipe for pipes in obstacles.pipes]
-    collisions = [floor_rect, *top_pipe_obstacles, *bottom_pipe_obstacles]
+    collisions = [floor_rect, *obstacles.all_pipes]
 
     if collision_detector.detect(bird.rect, *collisions):
         bird = Bird()
         obstacles = Obstacles()
         group = pygame.sprite.Group()
         group.add(bird)
-        for pipes in obstacles.pipes:
-            group.add(pipes.top_pipe)
-            group.add(pipes.bottom_pipe)
+        group.add(obstacles.all_pipes)
         input = InputHandler(pygame, bird)
         continue
 
