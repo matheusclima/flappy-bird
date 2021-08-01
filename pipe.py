@@ -6,7 +6,7 @@ from pygame.math import Vector2
 
 
 class Obstacles:
-    STEP = 200
+    STEP = 180
     HEIGHT_RANGE = (150, 300)
     GAP = 210
     LIST_LENGTH = 3
@@ -18,7 +18,7 @@ class Obstacles:
         self.CURRENT_PIPE = 0
         self.pipes = []
         for i in range(self.LIST_LENGTH):
-            pos_x = (i+1)*self.STEP
+            pos_x = (i+1)*self.STEP + 144
             pos_y = randint(*self.HEIGHT_RANGE)
             self.pipes.append(Pipes([pos_x, pos_y], self.GAP))
 
@@ -72,7 +72,7 @@ class Pipe(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(pos[0], pos[1] + height_diff))
 
     def move(self):
-        vel = Vector2((-1, 0))
+        vel = Vector2((-1.7, 0))
         self.pos += vel
         self.rect.center = self.pos
     

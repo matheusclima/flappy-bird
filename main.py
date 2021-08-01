@@ -15,9 +15,7 @@ black = 0, 0, 0
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
-# bird_sprite = pygame.image.load("assets/img/bird.png")
 bird = Bird()
-# birdrect = bird.birdrect
 background = pygame.image.load("assets/img/background.png")
 bg_pos = [0, background.get_width()]
 floor = pygame.image.load("assets/img/fg.png")
@@ -34,11 +32,9 @@ group.add(bird)
 for pipes in obstacles.pipes:
     group.add(pipes.top_pipe)
     group.add(pipes.bottom_pipe)
-# print(background.get_width())
 while running:
 
     input.handle()
-    # bird.fall()
     bg_pos = [bg_pos[0]-1.4, bg_pos[1]-1.4]
     if bg_pos[0] < background.get_width() * -1:
         bg_pos[0] = background.get_width()
@@ -51,7 +47,6 @@ while running:
     collisions = [floor_rect, *top_pipe_obstacles, *bottom_pipe_obstacles]
 
     if collision_detector.detect(bird.rect, *collisions):
-        # print('MORRI------------------')
         bird = Bird()
         obstacles = Obstacles()
         group = pygame.sprite.Group()
@@ -64,11 +59,10 @@ while running:
 
     screen.blit(background, (bg_pos[0], 0))
     screen.blit(background, (bg_pos[1], 0))
-    screen.blit(floor, floor_rect)
     group.draw(screen)
     group.update()
-    # obstacles.update_points(bird.pos[0])
     obstacles.update_group(bird.pos[0], group)
+    screen.blit(floor, floor_rect)
     pygame.display.flip()
     pygame.display.update()
     clock.tick(60)
