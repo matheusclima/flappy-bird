@@ -1,6 +1,6 @@
-import sys, pygame, time
+import pygame
 from bird import Bird
-from pipe import Pipe, Pipes, Obstacles
+from pipe import Obstacles
 from input import InputHandler
 from collision_detector import CollisionDetector
 
